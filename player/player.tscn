@@ -1,10 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://bapkwrttbtrbk"]
+[gd_scene load_steps=4 format=3 uid="uid://bapkwrttbtrbk"]
 
 [ext_resource type="Texture2D" uid="uid://b0i7e8jruhwc7" path="res://assets/player_ship.png" id="1_jwg2m"]
+[ext_resource type="Script" path="res://player/player.gd" id="1_tc1ai"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rq4pc"]
 
 [node name="Player" type="RigidBody2D"]
+linear_damp = 1.0
+angular_damp = 5.0
+script = ExtResource("1_tc1ai")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
