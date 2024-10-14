@@ -10,10 +10,7 @@
 linear_damp = 1.0
 angular_damp = 5.0
 script = ExtResource("1_tc1ai")
-engine_power = null
-spin_power = null
 bullet_scene = ExtResource("2_15s5s")
-fire_rate = null
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
