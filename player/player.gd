@@ -1,5 +1,8 @@
 extends RigidBody2D
 
+signal lives_changed
+signal dead
+
 @export var engine_power = 500
 @export var spin_power = 8000
 @export var bullet_scene : PackedScene
@@ -9,6 +12,8 @@ var can_shoot = true
 var thrust = Vector2.ZERO
 var rotation_dir = 0
 var screensize = Vector2.ZERO
+var reset_pos = false
+var lives = 0: set = set_lives
 
 enum {INIT, ALIVE, INVULNERABLE, DEAD}
 var state = INIT
@@ -52,6 +57,14 @@ func get_input():
 	if Input.is_action_pressed("shoot") and can_shoot:
 		shoot()
 	rotation_dir = Input.get_axis("rotate_left", "rotate_right")
+
+func set_lives(value):
+	lives = value
+	lives_changed.emit(lives)
+	if lives <= 0:
+		change_state(DEAD)
+	else:
+		change_state(INVULNERABLE)
 
 func shoot():
 	if state == INVULNERABLE:
