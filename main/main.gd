@@ -9,6 +9,7 @@ var playing = false
 
 func _ready() -> void:
 	screensize = get_viewport().get_visible_rect().size
+	$Player/Sprite2D.hide()
 
 func _process(delta: float) -> void:
 	if not playing:
