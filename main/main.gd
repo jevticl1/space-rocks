@@ -47,6 +47,7 @@ func new_level():
 	for i in level:
 		spawn_rock(3)
 
+
 func spawn_rock(size, pos=null, vel=null):
 	if pos == null:
 		$RockPath/RockSpawn.progress = randi()

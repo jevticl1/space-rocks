@@ -7,6 +7,8 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_rq4pc"]
 
 [node name="Player" type="RigidBody2D"]
+contact_monitor = true
+max_contacts_reported = 1
 linear_damp = 1.0
 angular_damp = 5.0
 script = ExtResource("1_tc1ai")
@@ -29,4 +31,10 @@ position = Vector2(50, 0)
 one_shot = true
 autostart = true
 
+[node name="InvulnerabilityTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="GunCooldown" to="." method="_on_gun_cooldown_timeout"]
+[connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_invulnerability_timer_timeout"]
