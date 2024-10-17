@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cbd0rx462amyy"]
+[gd_scene load_steps=9 format=3 uid="uid://cbd0rx462amyy"]
 
 [ext_resource type="Texture2D" uid="uid://cewxr23bpmyff" path="res://assets/space_background.png" id="1_d4jrw"]
 [ext_resource type="Script" path="res://main/main.gd" id="1_of8f1"]
 [ext_resource type="PackedScene" uid="uid://chvnfxgf1e3bp" path="res://rock/rock.tscn" id="2_73skg"]
+[ext_resource type="PackedScene" uid="uid://7x6w80dbvn1p" path="res://EnemyPath/enemy.tscn" id="3_bjcxs"]
 [ext_resource type="PackedScene" uid="uid://bapkwrttbtrbk" path="res://player/player.tscn" id="3_w7g0j"]
 [ext_resource type="PackedScene" uid="uid://bql48mbyw7bc8" path="res://HUD/hud.tscn" id="5_im88g"]
 [ext_resource type="PackedScene" uid="uid://c80cso2w2drvl" path="res://Explosion/explosion.tscn" id="6_c5xxo"]
@@ -17,6 +18,7 @@ point_count = 5
 process_mode = 3
 script = ExtResource("1_of8f1")
 rock_scene = ExtResource("2_73skg")
+enemy_scene = ExtResource("3_bjcxs")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 anchors_preset = 15
@@ -42,6 +44,9 @@ position = Vector2(0, -64)
 [node name="Explosion" parent="." instance=ExtResource("6_c5xxo")]
 visible = false
 
+[node name="EnemyTimer" type="Timer" parent="."]
+
 [connection signal="dead" from="Player" to="." method="game_over"]
 [connection signal="lives_changed" from="Player" to="HUD" method="update_lives"]
 [connection signal="start_game" from="HUD" to="." method="new_game"]
+[connection signal="timeout" from="EnemyTimer" to="." method="_on_enemy_timer_timeout"]
