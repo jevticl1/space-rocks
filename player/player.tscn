@@ -1,11 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://bapkwrttbtrbk"]
+[gd_scene load_steps=10 format=3 uid="uid://bapkwrttbtrbk"]
 
 [ext_resource type="Texture2D" uid="uid://b0i7e8jruhwc7" path="res://assets/player_ship.png" id="1_jwg2m"]
 [ext_resource type="Script" path="res://player/player.gd" id="1_tc1ai"]
 [ext_resource type="PackedScene" uid="uid://bf4w20me5rv3c" path="res://bullet/bullet.tscn" id="2_15s5s"]
 [ext_resource type="PackedScene" uid="uid://c80cso2w2drvl" path="res://Explosion/explosion.tscn" id="4_ps72r"]
+[ext_resource type="AudioStream" uid="uid://fmphe0e4xkil" path="res://assets/sounds/laser.ogg" id="5_2bppm"]
+[ext_resource type="AudioStream" uid="uid://f67d8n0cdtun" path="res://assets/sounds/engine.ogg" id="6_krip5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rq4pc"]
+
+[sub_resource type="Curve" id="Curve_c6efc"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_vqk4e"]
+offsets = PackedFloat32Array(0, 0.644737, 1)
+colors = PackedColorArray(0.148468, 0.234868, 0.734161, 1, 0.962842, 0.966718, 0.988994, 1, 1, 1, 1, 1)
 
 [node name="Player" type="RigidBody2D"]
 contact_monitor = true
@@ -38,6 +48,30 @@ visible = false
 [node name="InvulnerabilityTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
+
+[node name="LaserSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_2bppm")
+volume_db = -10.0
+
+[node name="EngineSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_krip5")
+
+[node name="Exhaust" type="CPUParticles2D" parent="."]
+show_behind_parent = true
+position = Vector2(-28, 0)
+rotation = 1.5708
+amount = 25
+lifetime = 0.2
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(1, 5)
+direction = Vector2(0, 1)
+spread = 6.52
+gravity = Vector2(0, 0)
+initial_velocity_max = 400.0
+scale_amount_max = 8.0
+scale_amount_curve = SubResource("Curve_c6efc")
+color_ramp = SubResource("Gradient_vqk4e")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="GunCooldown" to="." method="_on_gun_cooldown_timeout"]
