@@ -124,7 +124,7 @@ func shoot():
 	if state == INVULNERABLE:
 		return
 	can_shoot = false
-	$GunCooldown.start()
+	$GunCooldown.start(fire_rate)
 	var b = bullet_scene.instantiate()
 	get_tree().root.add_child(b)
 	b.start($Muzzle.global_transform)
