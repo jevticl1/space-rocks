@@ -41,6 +41,8 @@ func _on_rock_exploded(size, radius, pos, vel):
 	$ExplosionSound.play()
 	if size <= 1:
 		return
+	score += 10 * size
+	$HUD.update_score(score)
 	for offset in [-1,1]:
 		var dir = $Player.position.direction_to(pos).orthogonal() * offset
 		var newpos = pos + dir * radius
